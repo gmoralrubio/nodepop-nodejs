@@ -3,70 +3,74 @@
 <main>
 	<div class="mx-auto max-w-full px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
 		<header class="mb-8">
-			<h2 class="text-xl font-bold text-gray-900 sm:text-3xl"><%= title %></h2>
+			<h2 class="text-xl font-bold text-base-content sm:text-3xl"><%= title %></h2>
 		</header>
-      <%- include('partials/components/horizontal-filters-component.html', {
-        limitOptions,
-        sortOptions,
-        limit: productQuery.limit,
-        selectedTags: productQuery.selectedTags,
-        minPrice: productQuery.minPrice,
-        maxPrice: productQuery.maxPrice,
-        search: productQuery.search,
-        sortQuery: productQuery.sortQuery,
-      }) %>
-    <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
-      <table class="min-w-full divide-y-2 divide-gray-200">
-        <thead class="ltr:text-left rtl:text-right">
-          <tr class="*:font-medium *:text-gray-900">
-            <th class="px-3 py-2 whitespace-nowrap">Nombre producto</th>
-            <th class="px-3 py-2 whitespace-nowrap">Precio</th>
-            <th class="px-3 py-2 whitespace-nowrap">Tags</th>
-            <th class="px-3 py-2 whitespace-nowrap">Fecha de creación</th>
-            <th class="px-3 py-2 whitespace-nowrap">Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody class="divide-y divide-gray-200">
-          <% if(products.length===0) { %>
-            <span>No se han encontrado productos</span>
-          <% } else { products.forEach(product=>{ %>
-            <tr class="*:text-gray-900 *:first:font-medium hover:bg-gray-100">
-              <td class="px-3 py-2 whitespace-nowrap"><%= product.name%></td>
-              <td class="px-3 py-2 whitespace-nowrap"><%= product.price %>€</td>
-              <td class="px-3 py-2 whitespace-nowrap flex gap-2">
-                <% product.tags.forEach(tag => { %>
-                  <%- include('partials/components/tag-component.html', {tag: tag}) %>
-                <%}) %>
-              </td>
-              <td class="px-3 py-2 whitespace-nowrap"><%= formatDate(product.createdAt) %></td>
-              <td class="px-3 py-2 whitespace-nowrap">
-                <a class="inline-block rounded-sm  bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600" href="/products/edit/<%= product._id %>">
-                  Editar
-                </a>
-                <button class="inline-block rounded-sm  bg-red-500 px-3 py-1 text-sm font-medium text-white hover:bg-red-600 delete-btn" data-id="<%=product._id%>">
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          <% })} %>
-
-
-        </tbody>
-      </table>
-    </div>
-
-		<div class="mt-6 flex justify-end">
-			<a href="products/new" class="inline-block rounded-sm border border-indigo-600 bg-indigo-600 px-9 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600">
-				Añadir producto
-			</a>
+		<%- include('partials/components/horizontal-filters-component.html', {
+			limitOptions,
+			sortOptions,
+			limit: productQuery.limit,
+			selectedTags: productQuery.selectedTags,
+			minPrice: productQuery.minPrice,
+			maxPrice: productQuery.maxPrice,
+			search: productQuery.search,
+			sortQuery: productQuery.sortQuery,
+		}) %>
+		<div class="overflow-x-auto rounded-box border border-base-300">
+			<table class="table table-zebra">
+				<thead>
+					<tr>
+						<th>Nombre producto</th>
+						<th>Precio</th>
+						<th>Tags</th>
+						<th>Fecha de creación</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if(products.length===0) { %>
+					<tr>
+						<td colspan="5">
+							<div role="alert" class="alert">
+								<span>No se han encontrado productos</span>
+							</div>
+						</td>
+					</tr>
+					<% } else { products.forEach(product=>{ %>
+					<tr>
+						<td class="font-medium"><%= product.name%></td>
+						<td><%= product.price %>€</td>
+						<td>
+							<div class="flex flex-wrap gap-2">
+								<% product.tags.forEach(tag => { %>
+								<%- include('partials/components/tag-component.html', {tag: tag}) %>
+								<%}) %>
+							</div>
+						</td>
+						<td><%= formatDate(product.createdAt) %></td>
+						<td>
+							<a class="btn btn-sm btn-primary" href="/products/edit/<%= product._id %>">
+								Editar
+							</a>
+							<button class="btn btn-sm btn-error delete-btn" data-id="<%=product._id%>">
+								Eliminar
+							</button>
+						</td>
+					</tr>
+					<% })} %>
+				</tbody>
+			</table>
 		</div>
 
-    <%- include('partials/components/pagination-component.html', {
-          pages,
-          currentPage: productQuery.currentPage,
-          queryBase: productQuery.queryBase
-        })%>
+		<div class="mt-6 flex justify-end">
+			<a href="products/new" class="btn btn-primary">Añadir producto</a>
+		</div>
+
+		<%- include('partials/components/pagination-component.html', {
+			path,
+			pages,
+			currentPage: productQuery.currentPage,
+			queryBase: productQuery.queryBase
+		})%>
 	</div>
 </main>
 

@@ -1,74 +1,52 @@
-<header class="bg-white">
-	<div class="mx-auto flex h-16 max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-		<div class="flex flex-1 items-center justify-end md:justify-between">
-			<nav aria-label="Global" class="hidden md:block">
-				<ul class="flex items-center gap-6 text-sm">
-					<li>
-						<a
-							class="text-gray-500 transition hover:text-gray-500/75"
-							href="/"
-						>
-							Inicio
-						</a>
-					</li>
-					<% if(session.userId) {%>
-					<li>
-						<a
-							class="text-gray-500 transition hover:text-gray-500/75"
-							href="/products"
-						>
-							Gestor de productos
-						</a>
-					</li>
-					<% }%>
-				</ul>
-			</nav>
-
-			<div class="flex items-center gap-4">
-				<div class="sm:flex sm:gap-4">
-					<% if(!session.userId) { %>
-					<a
-						class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-indigo-600 transition hover:text-indigo-600/75 sm:block"
-						href="/register"
-					>
-						Registrarse
-					</a>
-					<a
-						class="block rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700"
-						href="/login"
-					>
-						Iniciar sesión
-					</a>
-					<% } else {%>
-					<a
-						class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-indigo-600 transition hover:text-indigo-600/75 sm:block"
-						href="/logout"
-					>
-						Cerrar sesión
-					</a>
-					<% }%>
-				</div>
-
-				<button
-					class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+<header class="navbar bg-base-100 shadow-sm px-4 sm:px-6 lg:px-8">
+	<div class="navbar-start">
+		<div class="dropdown">
+			<div tabindex="0" role="button" class="btn btn-square btn-ghost md:hidden">
+				<span class="sr-only">Toggle menu</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="size-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
 				>
-					<span class="sr-only">Toggle menu</span>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="size-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M4 6h16M4 12h16M4 18h16"
-						></path>
-					</svg>
-				</button>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4 6h16M4 12h16M4 18h16"
+					></path>
+				</svg>
 			</div>
+			<ul
+				tabindex="-1"
+				class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+			>
+				<li><a href="/">Inicio</a></li>
+				<% if(session.userId) {%>
+				<li><a href="/products">Gestor de productos</a></li>
+				<li><a href="/logout">Cerrar sesión</a></li>
+				<% } else { %>
+				<li><a href="/register">Registrarse</a></li>
+				<li><a href="/login">Iniciar sesión</a></li>
+				<% } %>
+			</ul>
 		</div>
+		<ul class="menu menu-horizontal px-1 hidden md:flex">
+			<li><a href="/">Inicio</a></li>
+			<% if(session.userId) {%>
+			<li><a href="/products">Gestor de productos</a></li>
+			<% }%>
+		</ul>
+	</div>
+
+
+	<div class="navbar-end gap-2">
+		<% if(!session.userId) { %>
+		<a class="btn btn-ghost hidden sm:inline-flex" href="/register">Registrarse</a>
+		<a class="btn btn-primary" href="/login">Iniciar sesión</a>
+		<% } else {%>
+		<a class="btn btn-ghost hidden sm:inline-flex" href="/logout">Cerrar sesión</a>
+		<% }%>
 	</div>
 </header>
