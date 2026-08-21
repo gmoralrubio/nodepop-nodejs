@@ -48,7 +48,7 @@
 						</td>
 						<td><%= formatDate(product.createdAt) %></td>
 						<td>
-							<a class="btn btn-sm btn-primary" href="/products/edit/<%= product._id %>">
+							<a class="btn btn-sm btn-primary" href="/me/products/edit/<%= product._id %>">
 								Editar
 							</a>
 							<button class="btn btn-sm btn-error delete-btn" data-id="<%=product._id%>">
@@ -62,7 +62,7 @@
 		</div>
 
 		<div class="mt-6 flex justify-end">
-			<a href="products/new" class="btn btn-primary">Añadir producto</a>
+			<a href="/me/products/new" class="btn btn-primary">Añadir producto</a>
 		</div>
 
 		<%- include('partials/components/pagination-component.html', {

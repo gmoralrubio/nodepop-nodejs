@@ -7,6 +7,7 @@ import ejs from 'ejs'
 
 import { pagesRouter } from './routes/pages-router.js'
 import { productsRouter } from './routes/products-routes.js'
+import { publicProductsRouter } from './routes/public-products-routes.js'
 import { authRouter } from './routes/auth-routes.js'
 import {
 	guard,
@@ -44,7 +45,8 @@ app.use('/', authRouter)
 app.use(filterProductsMiddleware)
 
 app.use('/', pagesRouter)
-app.use('/products', guard, productsRouter)
+app.use('/products', publicProductsRouter)
+app.use('/me/products', guard, productsRouter)
 
 // Handler 404
 app.use((req, res) => {

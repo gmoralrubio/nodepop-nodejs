@@ -24,7 +24,7 @@
 			>
 				<li><a href="/">Inicio</a></li>
 				<% if(session.userId) {%>
-				<li><a href="/products">Gestor de productos</a></li>
+				<li><a href="/me/products">Gestor de productos</a></li>
 				<li><a href="/logout">Cerrar sesión</a></li>
 				<% } else { %>
 				<li><a href="/register">Registrarse</a></li>
@@ -35,7 +35,7 @@
 		<ul class="menu menu-horizontal px-1 hidden md:flex">
 			<li><a href="/">Inicio</a></li>
 			<% if(session.userId) {%>
-			<li><a href="/products">Gestor de productos</a></li>
+			<li><a href="/me/products">Gestor de productos</a></li>
 			<% }%>
 		</ul>
 	</div>

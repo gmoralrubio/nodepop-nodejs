@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 import { Product } from '../models/product-model.js'
 
 export async function getProducts() {
@@ -31,6 +33,14 @@ export async function getProductsByUser(userId) {
 export async function getProduct(productId, ownerId) {
 	const product = Product.findOne({ _id: productId, owner: ownerId })
 	return product
+}
+
+export async function getProductById(productId) {
+	if (!mongoose.isValidObjectId(productId)) {
+		return null
+	}
+
+	return Product.findById(productId).populate('owner', 'username')
 }
 
 export async function addNewProduct(product) {

@@ -1,12 +1,13 @@
 import {
 	addNewProduct,
 	getProduct,
+	getProductById,
 	updateProduct,
 	deleteProduct,
 	getFilteredProducts,
 	getProductsCount,
 } from '../data/product-repository.js'
-import { formatDate } from '../scripts/utils.js'
+import { formatDate, randomImageUrl } from '../scripts/utils.js'
 
 export function newProductPageController(req, res, next) {
 	res.render('product.html', {
@@ -51,7 +52,7 @@ export async function productsPageController(req, res, next) {
 
 	res.render('products.html', {
 		title: 'Gestor de productos',
-		path: '/products',
+		path: '/me/products',
 		products: filteredProducts,
 		pages,
 		filter: req.productFilter,
@@ -91,7 +92,7 @@ export async function createProductController(req, res, next) {
 
 	await addNewProduct(newProduct)
 
-	res.redirect('/products')
+	res.redirect('/me/products')
 }
 
 export async function editProductController(req, res, next) {
@@ -132,7 +133,29 @@ export async function editProductController(req, res, next) {
 		price: req.body.price,
 		tags: req.body.tags,
 	})
-	res.redirect('/products')
+	res.redirect('/me/products')
+}
+
+export async function productDetailPageController(req, res, next) {
+	const product = await getProductById(req.params.productId)
+
+	if (!product) {
+		next()
+		return
+	}
+
+	const ownerId = product.owner?._id ?? product.owner
+	const isOwner = Boolean(
+		req.session.userId && String(ownerId) === String(req.session.userId),
+	)
+
+	res.render('product-detail.html', {
+		title: product.name,
+		product,
+		isOwner,
+		randomImageUrl,
+		formatDate,
+	})
 }
 
 export async function deleteProductController(req, res, next) {

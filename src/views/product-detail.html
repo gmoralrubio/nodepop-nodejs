@@ -1,0 +1,35 @@
+<%- include('partials/start-page.html', {title: title}) %>
+<%- include('partials/components/header-component.html') %>
+<main class="px-4 py-8 sm:px-6">
+	<div class="card bg-base-100 shadow mx-auto max-w-lg lg:card-side lg:max-w-4xl">
+		<figure class="lg:w-1/2">
+			<img
+				src="<%= randomImageUrl() %>"
+				alt=""
+				class="h-72 w-full object-cover lg:h-full"
+			/>
+		</figure>
+		<div class="card-body lg:w-1/2">
+			<div class="flex flex-wrap gap-2">
+				<% product.tags.forEach(tag => { %>
+				<%- include('partials/components/tag-component.html', {tag: tag}) %>
+				<% }) %>
+			</div>
+			<h2 class="card-title text-2xl"><%= product.name %></h2>
+			<p class="text-lg"><%= product.price %>€</p>
+			<% if (product.owner?.username) { %>
+			<p class="text-base-content/60">Vendedor: <%= product.owner.username %></p>
+			<% } %>
+			<p class="text-sm text-base-content/60">
+				Publicado el <%= formatDate(product.createdAt) %>
+			</p>
+			<div class="card-actions justify-end mt-auto">
+				<a href="/" class="btn btn-ghost">Volver</a>
+				<% if (isOwner) { %>
+				<a href="/me/products/edit/<%= product._id %>" class="btn btn-primary">Editar</a>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</main>
+<%- include('partials/end-page.html') %>

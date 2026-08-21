@@ -10,8 +10,8 @@ const deleteBtns = document.querySelectorAll('.delete-btn')
 
 deleteBtns?.forEach((btn) => {
 	btn.addEventListener('click', () => {
-		fetch(`/products/${btn.dataset.id}`, { method: 'DELETE' })
+		fetch(`/me/products/${btn.dataset.id}`, { method: 'DELETE' })
 			.then((response) => response.json())
-			.then((data) => (window.location.href = '/products'))
+			.then((data) => (window.location.href = '/me/products'))
 	})
 })

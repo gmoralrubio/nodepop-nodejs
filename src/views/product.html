@@ -2,7 +2,7 @@
 <%- include('partials/components/header-component.html') %>
 <main class="px-4 py-4 sm:px-6">
 	<h2 class="text-xl font-bold text-base-content text-center mb-8 sm:text-3xl"><%= title %></h2>
-	<form method="POST" action="/products<%= values._id ? '/edit/' + values._id : '' %>" class="card bg-base-200 mx-auto max-w-md">
+	<form method="POST" action="/me/products<%= values._id ? '/edit/' + values._id : '' %>" class="card bg-base-200 mx-auto max-w-md">
 		<div class="card-body gap-4">
 			<fieldset class="fieldset p-0">
 				<label class="label" for="name">Nombre</label>
@@ -40,7 +40,7 @@
 			<% } %>
 
 			<div class="card-actions justify-end">
-				<a href="/products" class="btn btn-ghost">Cancelar</a>
+				<a href="/me/products" class="btn btn-ghost">Cancelar</a>
 				<button type="submit" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
