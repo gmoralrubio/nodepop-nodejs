@@ -2,6 +2,8 @@
 
 Aplicación web de compraventa de artículos de segunda mano. Permite a usuarios registrados publicar, editar, eliminar y filtrar productos por nombre, precio y etiquetas.
 
+Práctica desplegada en: <https://gmoralrubio.duckdns.org/>
+
 ## Requisitos
 
 - Node.js v24+ (ver `.nvmrc`)
@@ -50,6 +52,35 @@ npm run dev
 ```
 
 El servidor estará disponible en el host y puerto definidos en `.env`
+
+### Docker
+
+El proyecto incluye un `Dockerfile` para construir la imagen de la aplicación y un `docker-compose.yml` para levantar Nodepop junto con MongoDB.
+
+Construir la imagen:
+
+```bash
+docker build -t gmoralrubio/nodepop:latest .
+```
+
+Levantar los servicios:
+
+```bash
+docker compose up -d
+```
+
+El servicio web queda disponible en `http://127.0.0.1:3000`.
+
+Para usar Docker Compose, el archivo `.env` debe incluir también las credenciales de MongoDB:
+
+```env
+MONGODB_URI=mongodb://<usuario>:<password>@mongo_server:27017/?authSource=admin
+MONGO_INITDB_ROOT_USERNAME=<usuario>
+MONGO_INITDB_ROOT_PASSWORD=<password>
+SESSION_SECRET=<clave-secreta>
+```
+
+El volumen `mongo-data` definido en `docker-compose.yml` persiste los datos de MongoDB aunque se recree el contenedor.
 
 ### CSS (Tailwind)
 
